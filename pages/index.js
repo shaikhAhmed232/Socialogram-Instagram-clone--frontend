@@ -1,11 +1,17 @@
+import { useContext, useEffect } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 
 import HomeComp from "../components/home/Home";
-import Navbar from "../components/navbar/Navbar";
 
-export default function Home() {
+import { authContext } from "../context/AuthContext";
+import withAuth from "../components/HigherOrderComps/withAuth";
+
+function Home() {
+  // console.log("home page running");
   return (
     <>
       <Head>
@@ -17,3 +23,5 @@ export default function Home() {
     </>
   );
 }
+
+export default withAuth(Home);

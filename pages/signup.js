@@ -2,8 +2,8 @@ import React from "react";
 
 import Head from "next/head";
 
-import SignupComp from "../../components/account-components/Signup";
-import Footer from "../../components/footer/Footer";
+import SignupComp from "../components/account-components/Signup";
+import Footer from "../components/footer/Footer";
 
 export default function Signup() {
   return (

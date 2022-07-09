@@ -1,19 +1,19 @@
 import "../styles/globals.css";
 
 import Layout from "../components/Layout";
+import AuthContextProvider from "../context/AuthContext";
+import UserListContextProvider from "../context/UserListContext";
 
 function MyApp({ Component, pageProps }) {
-  const isAuthenticated = true;
+  // console.log("my app running");
   return (
-    <>
-      {isAuthenticated ? (
-        <Layout>
+    <AuthContextProvider>
+      <Layout>
+        <UserListContextProvider>
           <Component {...pageProps} />
-        </Layout>
-      ) : (
-        <Component {...pageProps} />
-      )}
-    </>
+        </UserListContextProvider>
+      </Layout>
+    </AuthContextProvider>
   );
 }
 

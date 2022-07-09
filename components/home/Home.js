@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Posts from "./Posts";
 import Stories from "./Stories";
@@ -11,7 +11,7 @@ function HomeComp() {
         <Stories />
         <Posts />
       </div>
-      <div>
+      <div className="max-w-2xl">
         <Sidebar />
       </div>
     </div>

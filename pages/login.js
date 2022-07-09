@@ -2,10 +2,11 @@ import React from "react";
 
 import Head from "next/head";
 
-import LoginComp from "../../components/account-components/Login";
-import Footer from "../../components/footer/Footer";
+import LoginComp from "../components/account-components/Login";
+import Footer from "../components/footer/Footer";
 
 export default function Login() {
+  // console.log("Login running");
   return (
     <>
       <Head>

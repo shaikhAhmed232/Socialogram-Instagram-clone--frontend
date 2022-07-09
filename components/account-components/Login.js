@@ -1,9 +1,66 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+
+import { useRouter } from "next/router";
 
 import AlreadyAccountComp from "./AlreadyAccountComp";
 // import Footer from "../footer/Footer";
 
+import { authContext } from "../../context/AuthContext";
+import axiosInstance from "../../axios";
+import { redirect } from "next/dist/server/api-utils";
+
 function LoginComp() {
+  // console.log("running login comp");
+  const { setShouldFetch } = useContext(authContext);
+  const router = useRouter();
+  const [loginValues, setLoginValues] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [errMessage, setErrMessage] = useState(null);
+
+  const resetLoginValues = () => {
+    setLoginValues({
+      username: "",
+      password: "",
+    });
+  };
+
+  const loginValueChange = (e) => {
+    setLoginValues({
+      ...loginValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = (e) => {
+    console.log("login function triggered");
+    e.preventDefault();
+    axiosInstance
+      .post("login/", {
+        ...loginValues,
+      })
+      .then((res) => {
+        // console.log(res);
+        if (res.status === 200) {
+          const tokens = res.data;
+          localStorage.setItem("access_token", tokens.access);
+          localStorage.setItem("refresh_token", tokens.refresh);
+          setShouldFetch(true);
+          if (router.pathname === "/login") {
+            router.push("/");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 400 || err.response.status === 404) {
+          setErrMessage(err.response.data.message);
+          resetLoginValues();
+        }
+      });
+  };
+
   return (
     <div className="sm:container sm:mx-auto flex-col mt-5">
       <div className="max-w-lg p-7 mx-auto bg-white shadow shadow-slate-400">
@@ -19,16 +76,23 @@ function LoginComp() {
           <div className="w-2/5 bg-slate-200" style={{ height: "1px" }}></div>
         </div>
         <div className="w-full my-4 py-3 px-4">
-          <form className="w-full">
+          {errMessage ? (
+            <div className="text-red-500 font-base">{errMessage}</div>
+          ) : null}
+          <form className="w-full" onSubmit={handleLogin}>
             <input
               name="username"
+              value={loginValues.username}
+              onChange={loginValueChange}
               type="text"
               className="w-full py-2 px-5 rounded-sm my-2 border-2 border-inherit focus:outline-none"
-              placeholder="Email or Mobile Number or Username"
+              placeholder="Username"
             />
             <input
               name="password"
-              type="text"
+              value={loginValues.password}
+              onChange={loginValueChange}
+              type="password"
               className="w-full py-2 px-5 rounded-sm my-2 border-2 border-inherit focus:outline-none"
               placeholder="password"
             />
@@ -46,7 +110,7 @@ function LoginComp() {
       <AlreadyAccountComp
         string="Don't have an account"
         page="sign up"
-        url="signup"
+        url="/signup"
       />
       {/* <Footer /> */}
     </div>

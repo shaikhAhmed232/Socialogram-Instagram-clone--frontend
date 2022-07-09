@@ -14,9 +14,9 @@ function ProfileComp() {
     <>
       <div className="max-w-5xl bg-white mx-auto">
         <Layout>
-          {path === "/profile" ? (
+          {path === "/[username]" ? (
             <ProfilePosts />
-          ) : path === "/profile/tagged" ? (
+          ) : path === "/[username]/tagged" ? (
             <ProfileTagged />
           ) : (
             <ProfileSaved />
