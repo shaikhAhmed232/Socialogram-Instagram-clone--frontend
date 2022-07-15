@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useSWRConfig } from "swr";
 
 import Image from "next/image";
 
@@ -15,6 +16,7 @@ const EditProfilePic = ({
   router,
   setShouldFetch,
 }) => {
+  const { mutate } = useSWRConfig();
   const [showChangeProfilePic, setShowProfilePic] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
 

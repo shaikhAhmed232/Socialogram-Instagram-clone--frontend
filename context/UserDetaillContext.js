@@ -1,29 +1,38 @@
-import React, { createContext, useState } from "react";
-import { useRouter } from "next/router";
+import React, { createContext, useState, useEffect } from "react";
 import useSWR from "swr";
 import axiosInstance from "../axios";
 
 export const userDetailContext = createContext();
 
-export default function UserDetailContextProvider({ children }) {
+export default function UserDetailContextProvider({ children, username }) {
+  const [user, setUser] = useState(null);
   console.log("running user detail context");
-  const router = useRouter();
-  const { username } = router.query;
   console.log(username);
-  const fetcher = (...arg) =>
-    axiosInstance
-      .get(...arg)
+  const fetcher = (...args) =>
+    axiosInstance(...args)
       .then((res) => {
         return res.data;
       })
       .catch((err) => err);
-
   const { data, error } = useSWR(`${username}/`, fetcher);
-  const user = data;
-  console.log(data);
-  console.log(error);
+  // console.log(data, error);
+  // useEffect(() => {
+  //   axiosInstance(`${username}/`)
+  //     .then((res) => {
+  //       console.log("running axios instance from user detail.");
+  //       setUser(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [username]);
   return (
-    <userDetailContext.Provider value={{ user, error }}>
+    <userDetailContext.Provider
+      value={{
+        user: data,
+        error,
+        followers: data?.followers,
+        following: data?.following,
+      }}
+    >
       {children}
     </userDetailContext.Provider>
   );

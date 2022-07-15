@@ -2,6 +2,7 @@ import React, { useRef, useContext } from "react";
 
 import axios from "axios";
 import { authContext } from "../../../context/AuthContext";
+import { mutate } from "swr";
 
 const ChangeProfilePic = ({
   setShowProfilePic,

@@ -22,7 +22,12 @@ function Recommendations(props = {}) {
                   />
                 </div>
                 <div className="ml-4">
-                  <Link href={`/${user.username}`}>
+                  <Link
+                    href={{
+                      pathname: "/[username]",
+                      query: { username: user.username },
+                    }}
+                  >
                     <a className="text-slate-700 text-lg hover:underline">
                       {user.username}
                     </a>

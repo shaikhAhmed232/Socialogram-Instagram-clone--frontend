@@ -14,7 +14,9 @@ function Sidebar() {
   return (
     <div className="fixed px-5 py-5 w-full">
       <div className="flex items-center">
-        <Link href={`/${data.username}`}>
+        <Link
+          href={{ pathname: "/[username]", query: { username: data.username } }}
+        >
           <a>
             <div className="flex items-center justify-between">
               <div className="relative w-20 h-20 rounded-full flex-grow">

@@ -6,7 +6,7 @@ import axiosInstance from "../axios";
 export const authContext = createContext();
 
 export default function AuthContextProvider({ children }) {
-  // console.log("Auth context provider running");
+  console.log("Auth context provider running");
   const [shouldFetch, setShouldFetch] = useState(true);
   const fetcher = (...arg) =>
     axiosInstance
@@ -19,7 +19,10 @@ export default function AuthContextProvider({ children }) {
           setShouldFetch(false);
         }
       });
-  const { data, error } = useSWR(shouldFetch ? "current-user/" : null, fetcher);
+  const { data, error, mutate } = useSWR(
+    shouldFetch ? "current-user/" : null,
+    fetcher
+  );
   const isAuthenticated = data?.username ? true : false;
 
   return (

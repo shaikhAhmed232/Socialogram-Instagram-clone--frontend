@@ -10,7 +10,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 function EditProfileComp() {
-  const { data } = useContext(authContext);
+  const { data, mutate } = useContext(authContext);
   const router = useRouter();
   const [inputValues, setInputValues] = useState({
     id: data.id,
@@ -33,6 +33,7 @@ function EditProfileComp() {
               inputValues={inputValues}
               setInputValues={setInputValues}
               router={router}
+              mutate={mutate}
             />
             <EditProfileDetails
               router={router}
