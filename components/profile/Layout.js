@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
+import { useRouter } from "next/router";
+
 import ProfileHeader from "./ProfileHeader";
 import ProfileNav from "./ProfileNav";
-// import FollowModal from "./FollowModal";
-import { useRouter } from "next/router";
 
 function Layout({ children }) {
   const router = useRouter();
+  const { page } = router.query;
   return (
     <>
       <ProfileHeader />

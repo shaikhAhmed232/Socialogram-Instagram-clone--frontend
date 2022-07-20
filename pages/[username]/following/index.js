@@ -1,11 +1,18 @@
 import React from "react";
 
-import FollowComp from "../../../components/profile/followStatus/FollowComp";
+import { useRouter } from "next/dist/client/router";
 
-export default function Following() {
+import FollowComp from "../../../components/profile/followStatus/FollowComp";
+import UserFollowingListContextProvider from "../../../context/userContexts/UserFollowingList";
+
+export default function Followers() {
+  const router = useRouter();
+  const { username, page } = router.query;
   return (
-    <div className="flex items-center justify-center h-screen">
-      <FollowComp title="Following" />
-    </div>
+    <UserFollowingListContextProvider>
+      <div className="flex justify-center my-40">
+        <FollowComp title="following" />
+      </div>
+    </UserFollowingListContextProvider>
   );
 }

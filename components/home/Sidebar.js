@@ -6,11 +6,12 @@ import Link from "next/link";
 import Recommendations from "./sidebar/Recommendations";
 
 import { authContext } from "../../context/AuthContext";
-import { userListContext } from "../../context/UserListContext";
+import { userListContext } from "../../context/userContexts/UserListContext";
 
 function Sidebar() {
-  const { data, error } = useContext(authContext);
-  const { userList } = useContext(userListContext);
+  const { data, authUserFollower, authUserFollowing, error } =
+    useContext(authContext);
+  const { userList, loading } = useContext(userListContext);
   return (
     <div className="fixed px-5 py-5 w-full">
       <div className="flex items-center">
@@ -43,7 +44,7 @@ function Sidebar() {
           </Link>
         </div>
       </div>
-      <Recommendations userList={userList} />
+      <Recommendations userList={userList} loading={loading} />
     </div>
   );
 }

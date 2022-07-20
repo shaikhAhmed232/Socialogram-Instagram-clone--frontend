@@ -1,10 +1,6 @@
 import React from "react";
 
-function FollowModal({ show, onClose, children }) {
-  const handelModalClose = (e) => {
-    e.preventDefault();
-    onClose();
-  };
+function FollowModal({ show, children }) {
   return (
     <>
       {show ? (

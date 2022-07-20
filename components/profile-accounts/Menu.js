@@ -19,7 +19,6 @@ const active = {
 const Menu = () => {
   const router = useRouter();
   const pathname = router.pathname;
-  console.log(pathname);
   return (
     <>
       <div className="border-r-2 border-slate-200">

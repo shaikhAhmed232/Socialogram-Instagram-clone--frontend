@@ -4,12 +4,9 @@ import { useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import Navbar from "../../components/navbar/Navbar";
 import ProfileComp from "../../components/profile/ProfileComp";
 import withAuth from "../../components/HigherOrderComps/withAuth";
-import UserDetailContextProvider from "../../context/UserDetaillContext";
-
-import axiosInstance from "../../axios";
+import UserDetailContextProvider from "../../context/userContexts/UserDetaillContext";
 
 function Profile() {
   console.log("running profile page");

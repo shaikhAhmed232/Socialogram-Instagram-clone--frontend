@@ -19,19 +19,25 @@ export default function AuthContextProvider({ children }) {
           setShouldFetch(false);
         }
       });
-  const { data, error, mutate } = useSWR(
+  const { data, error, mutate, isValidating } = useSWR(
     shouldFetch ? "current-user/" : null,
     fetcher
   );
   const isAuthenticated = data?.username ? true : false;
+  const authUserFollowers = data?.followers;
+  const authUserFollowing = data?.following;
 
   return (
     <authContext.Provider
       value={{
         data,
         error,
+        authUserFollowers,
+        authUserFollowing,
+        authUserMutate: mutate,
         isAuthenticated,
         setShouldFetch,
+        authUserIsValidating: isValidating,
       }}
     >
       {children}

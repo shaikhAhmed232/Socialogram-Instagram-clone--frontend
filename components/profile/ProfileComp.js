@@ -6,6 +6,8 @@ import Layout from "./Layout";
 import ProfilePosts from "./ProfilePosts";
 import ProfileTagged from "./ProfileTagged";
 import ProfileSaved from "./ProfileSaved";
+import FollowModal from "./followStatus/FollowModal";
+import FollowComp from "./followStatus/FollowComp";
 
 function ProfileComp() {
   const router = useRouter();
