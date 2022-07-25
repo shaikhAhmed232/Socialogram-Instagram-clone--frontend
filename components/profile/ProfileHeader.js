@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 import { authContext } from "../../context/AuthContext";
 import { userDetailContext } from "../../context/userContexts/UserDetaillContext";
+import { followErrorMessagesContext } from "../../context/commonContexts/FollowErrorMessages";
 import FollowModal from "./followStatus/FollowModal";
 import FollowComp from "./followStatus/FollowComp";
 import {
@@ -13,15 +14,17 @@ import {
   makeUnFollowRequest,
 } from "../../handlers/handlers";
 
+import Loading from "../common/Loading";
+
 function ProfileHeader() {
-  console.log("running Profile headers");
   const { data, authUserFollowing, authUserMutate } = useContext(authContext);
   const { user, followers, following, userDetailsLoading } =
     useContext(userDetailContext);
+
   const router = useRouter();
   const { username, page } = router.query;
 
-  if (userDetailsLoading) return <h1>Loading...</h1>;
+  if (userDetailsLoading) return <Loading />;
   return (
     <>
       <div className="grid grid-cols-3">
@@ -48,11 +51,13 @@ function ProfileHeader() {
                 </a>
               </Link>
             ) : authUserFollowing.some(
-                ({ following }) => following === user?.id
+                ({ following_user_id }) => following_user_id === user.id
               ) ? (
               <button
-                onClick={() => makeUnFollowRequest(user.id)}
-                className="bg-slate-300 text-slate-700 mr-1 py-2 rounded-md font-bold"
+                onClick={() =>
+                  makeUnFollowRequest(user, authUserFollowing, authUserMutate)
+                }
+                className="bg-slate-300 text-slate-700 mr-1 py-2 px-4 rounded-md font-bold"
               >
                 Unfollow
               </button>

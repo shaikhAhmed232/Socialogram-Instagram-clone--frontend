@@ -54,10 +54,8 @@ function LoginComp() {
         }
       })
       .catch((err) => {
-        if (err.response.status === 400 || err.response.status === 404) {
-          setErrMessage(err.response.data.message);
-          resetLoginValues();
-        }
+        setErrMessage(err.response.data.message);
+        resetLoginValues();
       });
   };
 

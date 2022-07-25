@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import ProfileComp from "../../components/profile/ProfileComp";
 import withAuth from "../../components/HigherOrderComps/withAuth";
 import UserDetailContextProvider from "../../context/userContexts/UserDetaillContext";
+import UserPostsContextProvider from "../../context/postContexts/UserPostContext";
 
 function Profile() {
   console.log("running profile page");
@@ -20,7 +21,9 @@ function Profile() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <UserDetailContextProvider username={username}>
-        <ProfileComp />
+        <UserPostsContextProvider>
+          <ProfileComp />
+        </UserPostsContextProvider>
       </UserDetailContextProvider>
     </>
   );

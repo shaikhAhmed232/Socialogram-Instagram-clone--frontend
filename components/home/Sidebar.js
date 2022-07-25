@@ -8,13 +8,15 @@ import Recommendations from "./sidebar/Recommendations";
 import { authContext } from "../../context/AuthContext";
 import { userListContext } from "../../context/userContexts/UserListContext";
 
+import Loading from "../common/Loading";
+
 function Sidebar() {
   const { data, authUserFollower, authUserFollowing, error } =
     useContext(authContext);
   const { userList, loading } = useContext(userListContext);
   return (
     <div className="fixed px-5 py-5 w-full">
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <Link
           href={{ pathname: "/[username]", query: { username: data.username } }}
         >
@@ -38,13 +40,13 @@ function Sidebar() {
             </div>
           </a>
         </Link>
-        <div className="ml-10">
+        <div>
           <Link href="#">
             <a className="text-blue-600">switch</a>
           </Link>
         </div>
       </div>
-      <Recommendations userList={userList} loading={loading} />
+      {loading ? <Loading /> : <Recommendations userList={userList} />}
     </div>
   );
 }

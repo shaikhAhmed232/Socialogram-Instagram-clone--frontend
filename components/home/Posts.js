@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
 
-function Posts() {
+import { userListContext } from "../../context/userContexts/UserListContext";
+
+function Posts({ id, owner, img, caption }) {
+  const { userList } = useContext(userListContext);
+  const user = userList?.filter((user) => user.id === owner)[0];
   return (
     <div className="mt-4 shadow-md">
       <div className="bg-white">
@@ -11,21 +15,21 @@ function Posts() {
           <div className="flex items-center ">
             <div className="w-10 h-10 relative rounded-full">
               <Image
-                src="/img/default.jpg"
-                alt="user"
+                src={`http://127.0.0.1:8000${user.profile_pic}`}
+                alt={`${owner} profile pic`}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-full"
               />
             </div>
-            <div className="ml-2">Username</div>
+            <div className="ml-2">{user.username}</div>
           </div>
           <div>menu</div>
         </div>
         <div className="w-full h-96 relative">
           <Image
-            src="/img/default.jpg"
-            alt="user image"
+            src={`http://127.0.0.1:8000${img}`}
+            alt={`post by ${owner}`}
             layout="fill"
             objectFit="cover"
           />
@@ -36,12 +40,11 @@ function Posts() {
             <div className="mr-2">Comment</div>
             <div>share</div>
           </div>
-          <div>next/prev</div>
           <div>tag</div>
         </div>
         <div className="px-5">
           <div className="mb-2">999 likes</div>
-          <div className="mb-2">description</div>
+          <div className="mb-2">{caption}</div>
           <div className="mb-2">
             <Link href="#">
               <a>View all 999 comments</a>

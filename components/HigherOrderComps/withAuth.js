@@ -4,16 +4,17 @@ import { useRouter } from "next/router";
 
 import Login from "../../pages/login";
 import { authContext } from "../../context/AuthContext";
+import FullScreenLoading from "../common/FullScreenLoading";
 
 function withAuth(Component) {
   // console.log("with auth componetnt running")
   function WithAuthComponent(props) {
-    const { isAuthenticated } = useContext(authContext);
-    const router = useRouter();
+    const { isAuthenticated, authUserIsValidating } = useContext(authContext);
 
     if (!isAuthenticated) {
       return <Login />;
     }
+    if (authUserIsValidating) return <FullScreenLoading />;
     return <Component {...props} />;
   }
   return WithAuthComponent;

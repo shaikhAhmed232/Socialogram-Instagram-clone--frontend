@@ -11,18 +11,16 @@ const active = {
 };
 
 function ProfileNav() {
-  const { data } = useContext(authContext);
-  const path = useRouter().pathname;
-
+  const router = useRouter();
+  const path = router.pathname;
+  const { username } = router.query;
   return (
     <div className="border-t-2 border-inherit flex justify-center">
       <div
         className="px-6 py-4 text-slate-400 text-sm border-t-2 border-transparent border-solid hover:border-current hover:text-black cursor-pointer"
         style={path === `/[username]` ? active : null}
       >
-        <Link
-          href={{ pathname: "/[username]", query: { username: data.username } }}
-        >
+        <Link href={{ pathname: "/[username]", query: { username: username } }}>
           <a>POST</a>
         </Link>
       </div>
@@ -33,7 +31,7 @@ function ProfileNav() {
         <Link
           href={{
             pathname: "/[username]/saved",
-            query: { username: data.username },
+            query: { username: username },
           }}
         >
           <a>SAVED</a>
@@ -46,7 +44,7 @@ function ProfileNav() {
         <Link
           href={{
             pathname: "/[username]/tagged",
-            query: { username: data.username },
+            query: { username: username },
           }}
         >
           <a>TAGGED</a>

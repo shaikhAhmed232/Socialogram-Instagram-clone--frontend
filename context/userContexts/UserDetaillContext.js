@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 export const userDetailContext = createContext();
 
 export default function UserDetailContextProvider({ children }) {
-  console.log("running user detail context");
   const router = useRouter();
   const { username } = router.query;
   const fetcher = (...args) =>

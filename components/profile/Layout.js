@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { useRouter } from "next/router";
 
+import UserPostsContextProvider from "../../context/postContexts/UserPostContext";
+
 import ProfileHeader from "./ProfileHeader";
 import ProfileNav from "./ProfileNav";
 
