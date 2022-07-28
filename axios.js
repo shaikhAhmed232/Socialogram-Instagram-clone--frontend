@@ -43,3 +43,34 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+
+// const refreshToken = localStorage.getItem("refresh_token");
+//     const accessToken = localStorage.getItem("access_token");
+
+//     if (accessToken) {
+//       config.headers.Authorization = `Bearer ${accessToken}`;
+//       const decoded_token = jwt_decode(accessToken);
+//       if (decoded_token) {
+//         const isExpired = dayjs.unix(decoded_token.exp).diff(dayjs()) < 1;
+//         if (!isExpired) return config;
+//         if (refreshToken) {
+//           const decodedRefreshToken = jwt_decode(refreshToken);
+//           const isRefreshTokenExpired =
+//             dayjs.unix(decodedRefreshToken.exp).diff(dayjs()) < 1;
+//           if (isRefreshTokenExpired) {
+//             localStorage.removeItem("refresh_token");
+//             localStorage.removeItem("access_token");
+//             window.location.href = "/login";
+//           }
+//           const response = await axios.post(`${baseURL}token/refresh/`, {
+//             refresh: localStorage.getItem("refresh_token"),
+//           });
+//           if (response.status === 200) {
+//             localStorage.setItem("access_token", response.data.access);
+//           } else
+//             console.log("something went wrong while fetching access token");
+//           config.headers.Authorization = `Bearer ${response.data.access}`;
+//           return config;
+//         }
+//       }
+//     }

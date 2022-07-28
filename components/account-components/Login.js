@@ -54,6 +54,7 @@ function LoginComp() {
         }
       })
       .catch((err) => {
+        console.log(err.response?.data);
         setErrMessage(err.response.data.message);
         resetLoginValues();
       });

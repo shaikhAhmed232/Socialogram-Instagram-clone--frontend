@@ -3,11 +3,14 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import Loading from "../common/Loading";
 import { userListContext } from "../../context/userContexts/UserListContext";
 
 function Posts({ id, owner, img, caption }) {
   const { userList } = useContext(userListContext);
   const user = userList?.filter((user) => user.id === owner)[0];
+
+  if (!user) return <Loading />;
   return (
     <div className="mt-4 shadow-md">
       <div className="bg-white">

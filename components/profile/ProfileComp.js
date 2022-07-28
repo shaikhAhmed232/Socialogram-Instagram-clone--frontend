@@ -6,6 +6,9 @@ import Layout from "./Layout";
 import ProfilePosts from "./ProfilePosts";
 import ProfileTagged from "./ProfileTagged";
 import ProfileSaved from "./ProfileSaved";
+import PostComponent from "../post/post-comp/PostComponent";
+
+import Modal from "../common/Modal";
 
 function ProfileComp() {
   const router = useRouter();

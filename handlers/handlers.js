@@ -1,4 +1,5 @@
 import axiosInstance from "../axios";
+import axios from "axios";
 
 export const makeFollowRequest = async (
   user,
@@ -32,4 +33,29 @@ export const makeUnFollowRequest = async (
     status: res.status,
     msg: res.data.msg,
   };
+};
+
+export const submitUploadForm = async (img, caption, user, router) => {
+  const data = new FormData();
+  data.append("img", img);
+  data.append("caption", caption);
+  data.append("owner", user.id);
+  const res = await axios.post(
+    "http://127.0.0.1:8000/api/posts/upload/",
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  if (res.status === 201) {
+    router.push({
+      pathname: "/[username]",
+      query: { username: user.username },
+    });
+  } else {
+    res.catch((err) => console.log(err));
+  }
 };

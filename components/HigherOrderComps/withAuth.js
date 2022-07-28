@@ -10,11 +10,10 @@ function withAuth(Component) {
   // console.log("with auth componetnt running")
   function WithAuthComponent(props) {
     const { isAuthenticated, authUserIsValidating } = useContext(authContext);
-
+    if (authUserIsValidating) return <FullScreenLoading />;
     if (!isAuthenticated) {
       return <Login />;
     }
-    if (authUserIsValidating) return <FullScreenLoading />;
     return <Component {...props} />;
   }
   return WithAuthComponent;

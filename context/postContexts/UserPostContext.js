@@ -10,7 +10,6 @@ export const userPostsContext = createContext();
 export default function UserPostsContextProvider({ children }) {
   const router = useRouter();
   const { username } = router.query;
-  console.log(username);
   const fetcher = (arg) =>
     axiosInstance(arg)
       .then((res) => res.data)
@@ -21,7 +20,6 @@ export default function UserPostsContextProvider({ children }) {
     fetcher
   );
   const fetchingUserPosts = !data && !error;
-  console.log(data, error, fetchingUserPosts);
   return (
     <userPostsContext.Provider
       value={{ userPosts: data, userPostsErr: error, fetchingUserPosts }}

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useSWRConfig } from "swr";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,6 +19,7 @@ function Navbar() {
   const path = router.pathname;
   const { data, setShouldFetch } = useContext(authContext);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const { cache } = useSWRConfig();
 
   const handelLogout = () => {
     axiosInstance
@@ -26,9 +28,13 @@ function Navbar() {
       })
       .then((res) => {
         if (res.status === 200) {
+          // removing auth tokens from localStorage
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
+          // telling swr in auth context to stop fetching data
           setShouldFetch(false);
+          // clearing previous logged in user's cached data
+          cache.clear();
           router.push("/login");
         }
       });
@@ -60,10 +66,10 @@ function Navbar() {
               Home
             </a>
           </Link>
-          <Link href="#">
+          <Link href="/upload">
             <a
               className="font-bold text-lg py-2 px-5 border-b-2 border-transparent hover:border-current hover:text-slate-200 "
-              style={path === "#" ? active : null}
+              style={path === "/upload" ? active : null}
             >
               Post
             </a>
